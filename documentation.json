@@ -53,6 +53,45 @@
         "检查与测试",
         "网站快照"
       ]
+    },
+    {
+      "id": "contributing",
+      "zh": "CONTRIBUTING.md",
+      "en": "CONTRIBUTING.en.md",
+      "section": "overview",
+      "source": {
+        "repository": "weapp-container/.github",
+        "path": "CONTRIBUTING.md"
+      },
+      "reviewedChineseSummary": "同步组织主分支的贡献、安全私密报告与社区规则，保留权限、来源和预览版本边界。",
+      "reviewedChineseSha256": "9d2b130b2ade5dcb970db187938e4d512868642f54e9cd65f8bc4e6e6c212e07",
+      "legacyHeadingIds": []
+    },
+    {
+      "id": "security",
+      "zh": "SECURITY.md",
+      "en": "SECURITY.en.md",
+      "section": "overview",
+      "source": {
+        "repository": "weapp-container/.github",
+        "path": "SECURITY.md"
+      },
+      "reviewedChineseSummary": "同步组织主分支的贡献、安全私密报告与社区规则，保留权限、来源和预览版本边界。",
+      "reviewedChineseSha256": "d1ce809a018f9e6a9c47d24f9f2870c6edb6b39e7c2a95e23583d646ade07d1e",
+      "legacyHeadingIds": []
+    },
+    {
+      "id": "code_of_conduct",
+      "zh": "CODE_OF_CONDUCT.md",
+      "en": "CODE_OF_CONDUCT.en.md",
+      "section": "overview",
+      "source": {
+        "repository": "weapp-container/.github",
+        "path": "CODE_OF_CONDUCT.md"
+      },
+      "reviewedChineseSummary": "同步组织主分支的贡献、安全私密报告与社区规则，保留权限、来源和预览版本边界。",
+      "reviewedChineseSha256": "147525dd23582787357617008ab7cbab5212d0eda20e1719489c78c389aa2a08",
+      "legacyHeadingIds": []
     }
   ],
   "excluded": [],
