@@ -1,5 +1,7 @@
 <p align="center"><img src="assets/weapp-container.svg" width="96" height="96" alt="Weapp Container" /></p>
 
+<a id="从工程到应用的闭环"></a>
+<a id="开放与许可"></a>
 # Weapp Container
 
 [简体中文](README.md) · **English**
@@ -8,7 +10,6 @@ Embed mini-programs in your own applications. Weapp Container provides a public 
 
 [Documentation](https://container.weapp.dev/en/docs/) · [Live demo](https://container.weapp.dev/en/demo/) · [Core source](https://github.com/weapp-container/weapp-container/blob/main/README.en.md) · [Platform status](https://container.weapp.dev/en/docs/platforms/)
 
-<a id="从工程到应用的闭环"></a>
 <a id="开始使用"></a>
 ## Getting started
 
@@ -42,7 +43,6 @@ The project is in **preview**. Build, installation, runtime, device, and GPU acc
 
 Use the [core README](https://github.com/weapp-container/weapp-container/blob/main/README.en.md) to prepare Node.js 24.x, pnpm, Rust, and platform toolchains. Report issues in the relevant repository. Follow the [security policy](https://github.com/weapp-container/weapp-container/blob/main/SECURITY.en.md) for vulnerabilities and the [contribution guide](https://github.com/weapp-container/weapp-container/blob/main/CONTRIBUTING.en.md) before submitting changes.
 
-<a id="开放与许可"></a>
 <a id="许可与历史"></a>
 ## License and history
 

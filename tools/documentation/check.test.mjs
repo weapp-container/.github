@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtempSync, writeFileSync, rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {digest, headingIds, validateCatalog} from './check.mjs';
+import {digest, headingIds, links, validateCatalog} from './check.mjs';
 
 function fixture(t) {
   const root = mkdtempSync(join(tmpdir(), 'container-docs-'));
@@ -22,6 +22,14 @@ test('paired documents accept Unicode headings and explicit aliases', t => {
   assert.ok(headingIds('# Heading\n# Heading').has('heading-1'));
   assert.ok(headingIds('<a id="old-heading"></a>').has('old-heading'));
 });
+test('example links and IDs cannot satisfy real navigation references', () => {
+  const text = '# `Session::load`\n\n`<a id="inline">[Example](inline.md)</a>`\n\n```md\n<a id="fenced"></a>\n[Example](fenced.md)\n```\n\n[Actual](real.md)\n';
+  const ids = headingIds(text);
+  assert.ok(ids.has('sessionload'));
+  assert.equal(ids.has('inline'), false);
+  assert.equal(ids.has('fenced'), false);
+  assert.deepEqual(links(text), ['real.md']);
+});
 test('missing counterpart and unclassified new documentation fail', t => {
   const f = fixture(t);
   f.files.delete('README.en.md'); f.files.add('new.md');
@@ -34,15 +42,17 @@ test('Chinese changes invalidate the reviewed English identity', t => {
   writeFileSync(join(f.root, 'README.md'), f.zh + '\n新行为\n');
   assert.ok(validateCatalog(f.root, f.catalog, f.files).findings.some(x => /stale/.test(x.reason)));
 });
-test('broken sections and English links to Chinese pages fail', t => {
+test('broken sections and wrong-language document links fail', t => {
   const f = fixture(t);
   f.catalog.pages.push({id: 'other', zh: 'other.md', en: 'other.en.md', section: 'reference', reviewedChineseSha256: digest('[English](other.en.md)')});
   f.files.add('other.md'); f.files.add('other.en.md');
   writeFileSync(join(f.root, 'other.md'), '[English](other.en.md)');
   writeFileSync(join(f.root, 'other.en.md'), '[简体中文](other.md)');
   writeFileSync(join(f.root, 'README.en.md'), f.en + '\n[wrong locale](other.md)\n[broken](#missing)');
+  writeFileSync(join(f.root, 'README.md'), f.zh + '\n[错误语言](other.en.md)');
   const result = validateCatalog(f.root, f.catalog, f.files);
   assert.ok(result.findings.some(x => /English navigation/.test(x.reason)));
+  assert.ok(result.findings.some(x => /Chinese navigation/.test(x.reason)));
   assert.ok(result.findings.some(x => /missing section/.test(x.reason)));
 });
 test('excluded immutable fixture identity cannot silently change', t => {

@@ -4,7 +4,6 @@
 [简体中文](README.md) · **English**
 
 
-
 `documentation.json` classifies and pairs this repository's authored documents. Default `*.md` files are Chinese; their English counterparts use `*.en.md`. Keep API names, commands, package names, and executable examples unchanged. Third-party texts, license originals, historical evidence, and fixed test inputs have exact SHA-256 exclusions and must not change during translation.
 
 <a id="更新一组文档"></a>

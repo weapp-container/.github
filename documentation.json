@@ -17,10 +17,18 @@
         "path": "profile/README.md"
       },
       "reviewedChineseSummary": "公开源码、独立测试包、宿主入口、验证与历史许可",
-      "reviewedChineseSha256": "2551b2ba10f6c3a09de94e8ce2354bc5b67a1bebcde093ccc27e0b34e9264b9b",
+      "reviewedChineseSha256": "65f3665e03a74f0424ad51477699ed3ca9e290e635fc696d61a12536cc2250ed",
       "legacyHeadingIds": [
+        "development",
+        "getting-started",
+        "integrations",
+        "license-and-history",
+        "weapp-container",
         "从工程到应用的闭环",
+        "开发与贡献",
+        "开始使用",
         "开放与许可",
+        "许可与历史",
         "选择接入入口"
       ]
     },
@@ -34,8 +42,17 @@
         "path": "tools/documentation/README.md"
       },
       "reviewedChineseSummary": "配对清单、翻译复核、快照和验收",
-      "reviewedChineseSha256": "81410962c74330e0801cbb302daec686d9aab75cf37882cdd8a8a4c29b08a291",
-      "legacyHeadingIds": []
+      "reviewedChineseSha256": "6c0d12dd12a6cd4a1076e912f2a09d959772638769da314e76d1708cc7c5a64e",
+      "legacyHeadingIds": [
+        "checks-and-tests",
+        "maintaining-bilingual-documentation",
+        "update-a-document-pair",
+        "website-snapshots",
+        "双语文档维护",
+        "更新一组文档",
+        "检查与测试",
+        "网站快照"
+      ]
     }
   ],
   "excluded": [],

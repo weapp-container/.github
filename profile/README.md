@@ -1,5 +1,7 @@
 <p align="center"><img src="assets/weapp-container.svg" width="96" height="96" alt="Weapp Container" /></p>
 
+<a id="从工程到应用的闭环"></a>
+<a id="开放与许可"></a>
 # Weapp Container
 
 **简体中文** · [English](README.en.md)
@@ -8,7 +10,6 @@
 
 [开发文档](https://container.weapp.dev/docs/) · [在线演示](https://container.weapp.dev/demo/) · [核心源码](https://github.com/weapp-container/weapp-container/blob/main/README.md) · [平台状态](https://container.weapp.dev/docs/platforms/)
 
-<a id="从工程到应用的闭环"></a>
 <a id="getting-started"></a>
 ## 开始使用
 
@@ -22,14 +23,13 @@ node fixtures/make-acceptance-pack.mjs --out ../hello-pack
 
 然后选择宿主，按接入指南从公开源码构建匹配运行库，将 SDK 视图加入应用并加载 `hello-pack/`。自己的原生小程序通过[独立打包工具](https://container.weapp.dev/docs/pack/)生成相同格式。在线演示只运行固定包，不能接收任意上传。
 
-<a id="选择接入入口"></a>
 <a id="integrations"></a>
 ## 选择接入入口
 
 | 宿主 | 仓库 | 主要内容 |
 | --- | --- | --- |
 | Android | [sdk-android](https://github.com/weapp-container/sdk-android/blob/main/README.md) | Kotlin Session、原生视图与消息 |
-| iOS | [sdk-ios](https://github.com/weapp-container/sdk-ios/blob/main/README.md) | Swift Session、UIKit / SwiftUI |
+| iOS | [sdk-ios](https://github.com/weapp-container/sdk-ios/blob/main/README.md) | Swift 会话、UIKit / SwiftUI |
 | C++ Desktop | [sdk-desktop](https://github.com/weapp-container/sdk-desktop/blob/main/README.md) | C/C++ Session、原生子视图和平台呈现器 |
 | Flutter | [sdk-flutter](https://github.com/weapp-container/sdk-flutter/blob/main/README.md) | Dart Controller、Widget 与原生适配 |
 | React Native | [sdk-react-native](https://github.com/weapp-container/sdk-react-native/blob/main/README.md) | Fabric View、Controller 与 TurboModules |
@@ -43,7 +43,6 @@ node fixtures/make-acceptance-pack.mjs --out ../hello-pack
 
 从[核心仓库中文 README](https://github.com/weapp-container/weapp-container/blob/main/README.md)开始准备 Node.js 24.x、pnpm、Rust 和平台工具链。错误报告提交到对应仓库，安全问题遵循[安全指南](https://github.com/weapp-container/weapp-container/blob/main/SECURITY.md)，贡献前阅读[贡献指南](https://github.com/weapp-container/weapp-container/blob/main/CONTRIBUTING.md)。
 
-<a id="开放与许可"></a>
 <a id="license-and-history"></a>
 ## 许可与历史
 

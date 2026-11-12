@@ -4,7 +4,6 @@
 **简体中文** · [English](README.en.md)
 
 
-
 `documentation.json` 是本仓库自有文档的配对与分类清单。默认正文为 `*.md`（中文），对应英文为 `*.en.md`；API 名称、命令、包名和代码示例保留原名。第三方原文、许可文本、历史证据和固定测试输入用精确 SHA-256 排除，不能因翻译而修改。
 
 <a id="update-a-document-pair"></a>

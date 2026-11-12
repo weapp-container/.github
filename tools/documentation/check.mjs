@@ -8,9 +8,11 @@ import {fileURLToPath} from 'node:url';
 
 export const digest = value => createHash('sha256').update(value).digest('hex');
 export const englishPath = path => path.replace(/\.md$/, '.en.md');
-const stripCode = text => text.replace(/^\s*(`{3,}|~{3,})[^\n]*\n[\s\S]*?^\s*\1\s*$/gm, '').replace(/`([^`\n]+)`/g, '$1');
+const stripFences = text => text.replace(/^\s*(`{3,}|~{3,})[^\n]*\n[\s\S]*?^\s*\1\s*$/gm, '');
+const stripCode = text => stripFences(text).replace(/`([^`\n]+)`/g, '$1');
 export function headingIds(text) {
-  const ids = new Set([...text.matchAll(/\b(?:id|name)=["']([^"']+)["']/g)].map(match => match[1]));
+  const prose = stripFences(text).replace(/`+[^`\n]*`+/g, '');
+  const ids = new Set([...prose.matchAll(/\b(?:id|name)=["']([^"']+)["']/g)].map(match => match[1]));
   const counts = new Map();
   for (const match of stripCode(text).matchAll(/^#{1,6}\s+(.+?)\s*#*\s*$/gm)) {
     const base = match[1].replace(/<[^>]*>/g, '').replace(/!?\[([^\]]+)\]\([^)]*\)/g, '$1').toLowerCase().replace(/[^\p{L}\p{N}\p{M}_\-\s]/gu, '').replace(/\s/g, '-');
@@ -21,7 +23,7 @@ export function headingIds(text) {
   return ids;
 }
 export function links(text) {
-  const prose = text.replace(/^\s*(`{3,}|~{3,})[^\n]*\n[\s\S]*?^\s*\1\s*$/gm, '');
+  const prose = stripFences(text).replace(/`+[^`\n]*`+/g, '');
   return [
     ...[...prose.matchAll(/!?\[[^\]\n]*\]\(\s*(<[^>\n]+>|[^\s)]+)(?:\s+[^)]*)?\)/g)].map(match => match[1]),
     ...[...prose.matchAll(/^\s*\[[^\]\n]+\]:\s*(<[^>\n]+>|\S+)/gm)].map(match => match[1]),
@@ -77,9 +79,14 @@ export function validateCatalog(root, catalog, files) {
         if (!existsSync(targetFile)) { fail(path, `missing link target: ${link}`); continue; }
         if (fragment && targetFile.endsWith('.md') && !headingIds(readFileSync(targetFile, 'utf8')).has(fragment)) fail(path, `missing section: ${link}`);
         if (language === 'en' && target.startsWith('/docs/')) fail(path, `English navigation links to Chinese route: ${link}`);
+        if (language === 'zh-CN' && target.startsWith('/en/docs/')) fail(path, `Chinese navigation links to English route: ${link}`);
         if (language === 'en' && target.endsWith('.md') && !target.endsWith('.en.md') && link !== counterpart) {
           const local = relative(root, targetFile).split('\\').join('/');
           if ((catalog.pages || []).some(item => item.zh === local)) fail(path, `English navigation links to Chinese document: ${link}`);
+        }
+        if (language === 'zh-CN' && target.endsWith('.en.md') && link !== counterpart) {
+          const local = relative(root, targetFile).split('\\').join('/');
+          if ((catalog.pages || []).some(item => item.en === local)) fail(path, `Chinese navigation links to English document: ${link}`);
         }
       }
     }
@@ -96,7 +103,25 @@ export function validateCatalog(root, catalog, files) {
 }
 export function checkDocumentation(root) {
   const paths = execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], {cwd: root, encoding: 'utf8', maxBuffer: 32 * 1024 * 1024}).split('\0').filter(path => path && existsSync(resolve(root, path)));
-  return validateCatalog(root, JSON.parse(readFileSync(resolve(root, 'documentation.json'), 'utf8')), new Set(paths));
+  const catalog = JSON.parse(readFileSync(resolve(root, 'documentation.json'), 'utf8'));
+  // Imported bodies have a separate exact-file manifest. Do not classify them
+  // as newly authored translations; verify their provenance and hashes below.
+  const imported = catalog.repository === 'weapp-container/website' && existsSync(resolve(root, 'website/src/data/documentation-sources.json'))
+    ? JSON.parse(readFileSync(resolve(root, 'website/src/data/documentation-sources.json'), 'utf8')) : null;
+  const generated = new Set(imported ? [
+    ...imported.pages.flatMap(page => [page.source, page.output]),
+    ...imported.sources.map(source => source.catalog),
+  ] : []);
+  const report = validateCatalog(root, catalog, new Set(paths.filter(path => !generated.has(path))));
+  if (imported) {
+    try {
+      const verification = JSON.parse(execFileSync(process.execPath, ['tools/documentation-snapshot.mjs', '--check'], {cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe']}));
+      if (!(verification.pages > 0)) throw new Error('Empty documentation snapshot');
+    } catch {
+      report.findings.push({path: 'website/src/data/documentation-sources.json', reason: 'Imported documentation manifest, source, output or resource verification failed'});
+    }
+  }
+  return report;
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const args = process.argv.slice(2);
