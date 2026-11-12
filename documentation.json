@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "repository": "weapp-container/.github",
+  "defaultLocale": "zh-CN",
+  "locales": [
+    "zh-CN",
+    "en"
+  ],
+  "pages": [
+    {
+      "id": "profile/README",
+      "zh": "profile/README.md",
+      "en": "profile/README.en.md",
+      "section": "overview",
+      "source": {
+        "repository": "weapp-container/.github",
+        "path": "profile/README.md"
+      },
+      "reviewedChineseSummary": "公开源码、独立测试包、宿主入口、验证与历史许可",
+      "reviewedChineseSha256": "2551b2ba10f6c3a09de94e8ce2354bc5b67a1bebcde093ccc27e0b34e9264b9b",
+      "legacyHeadingIds": [
+        "从工程到应用的闭环",
+        "开放与许可",
+        "选择接入入口"
+      ]
+    },
+    {
+      "id": "tools/documentation/README",
+      "zh": "tools/documentation/README.md",
+      "en": "tools/documentation/README.en.md",
+      "section": "tools",
+      "source": {
+        "repository": "weapp-container/.github",
+        "path": "tools/documentation/README.md"
+      },
+      "reviewedChineseSummary": "配对清单、翻译复核、快照和验收",
+      "reviewedChineseSha256": "81410962c74330e0801cbb302daec686d9aab75cf37882cdd8a8a4c29b08a291",
+      "legacyHeadingIds": []
+    }
+  ],
+  "excluded": [],
+  "assets": [
+    {
+      "path": "profile/assets/weapp-container.svg",
+      "sha256": "e9cc10702f6ab5856a0b21dfa0f1f7f77aaecceb8b2c914a39b079f53fae5c84"
+    }
+  ]
+}
