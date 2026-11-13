@@ -1,5 +1,7 @@
 # 参与 Weapp Container
 
+**简体中文** · [English](CONTRIBUTING.en.md)
+
 遵循各仓库 README 中固定的工具版本、源码清单和测试命令。先复现问题，说明
 变更的行为、验证范围与限制；平台支持结论须有对应版本的独立证据。
 

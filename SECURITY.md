@@ -1,5 +1,7 @@
 # 安全问题报告
 
+**简体中文** · [English](SECURITY.en.md)
+
 请勿在公开 Issue 发布可利用漏洞、凭据、用户数据或设备记录。优先使用受影响
 仓库 Security 页的私密漏洞报告。若受影响仓库的入口暂不可用，可使用
 [组织私密报告入口](https://github.com/weapp-container/.github/security/advisories/new)。
