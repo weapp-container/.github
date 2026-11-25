@@ -13,15 +13,14 @@ Embed mini-programs in your own applications. Weapp Container provides a public 
 <a id="开始使用"></a>
 ## Getting started
 
-Create a standalone test pack without installing a mini-program framework or npm dependencies:
+Install the public Contract tooling and create a standalone test pack:
 
 ```sh
-git clone https://github.com/weapp-container/sdk-contract.git
-cd sdk-contract
-node fixtures/make-acceptance-pack.mjs --out ../hello-pack
+npm install @weapp-container/sdk-contract@0.1.0-preview.7.1
+node --input-type=module -e "import { makeAcceptancePack } from '@weapp-container/sdk-contract/fixtures'; makeAcceptancePack('./hello-pack')"
 ```
 
-Choose a host, build the matching runtime from public source, mount its SDK view, and load `hello-pack/`. Package your own native mini-program with the [standalone packer](https://container.weapp.dev/en/docs/pack/). The browser demonstration runs a fixed pack and does not accept arbitrary uploads.
+Choose a host, install its published SDK package or platform archive, mount the SDK view, and load `hello-pack/`. Package your own native mini-program with the [standalone packer](https://container.weapp.dev/en/docs/pack/). The browser demonstration runs a fixed pack and does not accept arbitrary uploads.
 
 <a id="选择接入入口"></a>
 ## Integrations
@@ -48,4 +47,4 @@ Use the [core README](https://github.com/weapp-container/weapp-container/blob/ma
 
 Project source is published under Apache-2.0, with selected core crates retaining MIT OR Apache-2.0. Third-party components keep their own licenses. The LICENSE, NOTICE, and RUNTIME-LICENSE included with each repository or copy govern that copy.
 
-Historical runtime archives retain their original terms and hashes. Public source does not relicense those binaries or guarantee old download pins remain available. Prefer building matching public source; see the [migration documentation](https://container.weapp.dev/en/docs/platforms/) for historical archive boundaries.
+Historical runtime archives retain their original terms and hashes. Public source does not relicense those binaries or guarantee old download pins remain available. Prefer the published SDK releases for application integration. Read the maintainer source-build guide only when modifying an SDK or rebuilding a runtime. See the [migration documentation](https://container.weapp.dev/en/docs/engineering/weapp-container/docs/runtime-artifacts-migration/) for historical archive boundaries.
